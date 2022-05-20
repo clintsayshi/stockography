@@ -1,6 +1,7 @@
 import Axios from "axios";
 import React, { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
+import Header from "../components/Header";
 
 function DetailView() {
   let { id } = useParams();
@@ -23,6 +24,8 @@ function DetailView() {
 
   return (
     <div>
+      <Header />
+
       <h1>{self.tags}</h1>
       <a target="_blank" rel="noreferrer" href={`${self.pageURL}`}>
         View on Pixabay
