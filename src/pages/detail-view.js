@@ -1,6 +1,6 @@
 import Axios from "axios";
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 
 function DetailView() {
   let { id } = useParams();
@@ -15,11 +15,32 @@ function DetailView() {
     /* .catch(error){
         console.log("Error Message:", error)       
       } */
+
+    console.log(self);
   }, []);
+
+  if (self == null) return "loading";
 
   return (
     <div>
       <h1>{self.tags}</h1>
+      <a target="_blank" rel="noreferrer" href={`${self.pageURL}`}>
+        View on Pixabay
+      </a>
+
+      <img src={self.largeImageURL} alt={self.tags} />
+
+      <p>
+        {self.likes} <span>likes</span>
+      </p>
+      <p>
+        {self.downloads} <span>downloads</span>
+      </p>
+      <p>
+        {self.views} <span>views</span>
+      </p>
+
+      <img src={self.userImageURL} alt={self.user} />
     </div>
   );
 }

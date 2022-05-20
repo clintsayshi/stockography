@@ -1,44 +1,55 @@
 import Axios from "axios";
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import Header from "../components/Header";
+import QueryResults from "../components/QueryResults";
 
 function Home() {
   const [images, setImages] = useState([]);
-  const [error, setError] = useState();
+  const [loading, setLoading] = useState(true);
+  const [page, setPage] = useState(1);
+  const [perPage, setPerPage] = useState(30);
 
   console.log(images);
 
   useEffect(() => {
-    Axios.get(
-      `https://pixabay.com/api/?key=${process.env.REACT_APP_PIXABAY_KEY}`
-    )
-      .then((response) => response.data)
-      .then((data) => setImages(data.hits));
-    /* .catch(error){
-        console.log("Error Message:", error)       
-      } */
-  }, []);
+    setLoading(true);
+    //
+    const fetchImages = async () => {
+      const response = await Axios.get(
+        `https://pixabay.com/api/?key=${process.env.REACT_APP_PIXABAY_KEY}&per_page=${perPage}&page=${page}`
+      );
+
+      setImages(response.data.hits);
+      setLoading(false);
+    };
+
+    fetchImages();
+  }, [page]);
 
   return (
-    <div>
-      <h1>Welcome Home</h1>
+    <div className="h-screen">
+      <Header />
 
-      <section className="container mx-auto">
-        <div className=" sm:grid sm:grid-cols-3 md:grid-cols-4">
-          {images.length > 0 &&
-            images.map((image) => (
-              <article key={image.id}>
-                <img
-                  alt={image.tags}
-                  width={image.previewWidth}
-                  height={image.previewHeight}
-                  src={image.previewURL}
-                />
+      <button onClick={() => setPage((prev) => ++prev)}>ADD</button>
 
-                <Link to={`/${image.id}`}>View Image</Link>
-              </article>
-            ))}
-        </div>
+      <section className="container h-full mx-auto px-6 sm:px-6">
+        <QueryResults loading={loading}>
+          <div className="gap-6 grid grid-cols-1 sm:grid-cols-3 lg:grid-cols-4">
+            {images.length > 0 &&
+              images.map((image) => (
+                <Link to={`/${image.id}`} key={image.id}>
+                  <img
+                    className="w-full h-60 object-cover"
+                    alt={image.tags}
+                    width={image.previewWidth}
+                    height={image.previewHeight}
+                    src={image.previewURL}
+                  />
+                </Link>
+              ))}
+          </div>
+        </QueryResults>
       </section>
     </div>
   );
