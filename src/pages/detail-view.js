@@ -8,13 +8,13 @@ function DetailView() {
   const [self, setSelf] = useState(null);
   const [error, setError] = useState(null);
 
-  const fetchImageData = async () => {
+  const fetchImageData = async (id) => {
     try {
       const response = await Axios.get(
         `https://pixabay.com/api/?key=${process.env.REACT_APP_PIXABAY_KEY}&id=${id}`
       );
 
-      setSelf(response.data.hits[0]);
+      setSelf(await response.data.hits[0]);
 
       console.log(self);
     } catch (error) {
@@ -23,7 +23,7 @@ function DetailView() {
   };
 
   useEffect(() => {
-    fetchImageData();
+    fetchImageData(id);
   }, []);
 
   // return a loader while still fetching image data
