@@ -4,10 +4,10 @@ import { Link } from "react-router-dom";
 function Header() {
   return (
     <header>
-      <nav className="container mx-auto flex justify-between items-center py-4 px-6 sm:px-0">
+      <nav className="container mx-auto flex justify-between items-center py-4  px-4 md:px-8 lg:px-12 xl:px-16">
         <Link
           to="/"
-          className="flex items-center gap-2  font-mono text-lg sm:text-xl font-medium"
+          className="flex items-center gap-2 font-mono text-lg sm:text-xl font-medium"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
