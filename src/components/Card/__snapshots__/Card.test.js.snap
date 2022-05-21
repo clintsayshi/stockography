@@ -1,0 +1,17 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders Card successfully 1`] = `
+<a
+  class="relative"
+  data-testid="card-132132"
+  href="/132132"
+>
+  <img
+    alt="nature, sunrise"
+    class="w-full rounded-lg h-60 object-cover"
+    height="250"
+    src="https://cdn.pixabay.com/photo/2022/04/21/20/49/road-7148369_960_720.jpg"
+    width="200"
+  />
+</a>
+`;
