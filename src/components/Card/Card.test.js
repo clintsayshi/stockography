@@ -1,4 +1,5 @@
 import React from "react";
+import renderer from "react-test-renderer";
 import { render, screen, cleanup } from "@testing-library/react";
 import Card from "./Card";
 import { MemoryRouter } from "react-router-dom";
@@ -16,17 +17,22 @@ afterEach(() => {
   cleanup();
 });
 
-test("renders Card successfully", () => {
+it("renders Card successfully", () => {
   render(
     <MemoryRouter>
       <Card data={fakeData} />
     </MemoryRouter>
   );
+  const component = renderer.create(
+    <MemoryRouter>
+      <Card data={fakeData} />
+    </MemoryRouter>
+  );
+  let tree = component.toJSON();
+  expect(tree).toMatchSnapshot();
 
   const cardElement = screen.getByTestId("card-132132");
-
   expect(cardElement).toBeInTheDocument();
-  expect(cardElement).toMatchSnapshot();
 });
 
 test("the link works as expected", () => {
