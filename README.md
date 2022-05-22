@@ -2,7 +2,7 @@
 
 A simple web app where you can via stock photography powered by Pixabay API
 
-![App Screenshot!](/images/stockography-sc.png "Screenshot")
+![App Screenshot!](/images/stockography-sc.png)
 
 ## You can clone the project
 
