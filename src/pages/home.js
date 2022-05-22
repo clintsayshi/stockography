@@ -1,37 +1,35 @@
-import Axios from "axios";
 import React, { useEffect, useState } from "react";
 import { BeatLoader } from "react-spinners";
-import Card from "../components/Card/Card";
 import Header from "../components/Header";
-
-const POSTS_PER_PAGE = 10;
+import ImagesGrid from "../components/ImagesGrid/ImagesGrid";
+import { fetchImageData } from "../lib/fetchImageData";
 
 function Home() {
   const [images, setImages] = useState([]);
   const [loading, setLoading] = useState(true);
   const [page, setPage] = useState(1);
-  const [error, setError] = useState();
+  const [error, setError] = useState(false);
+
+  const fetchData = async () => {
+    const fetchResponse = await fetchImageData(page);
+
+    if (fetchResponse === []) {
+      setError(true);
+      return;
+    }
+
+    // in order to enable infinite scrolling add newly fetched images to the exisiting ones
+    setImages(await [...images, ...fetchResponse.data.hits]);
+    // turn off loading
+    setLoading(false);
+    setError(false);
+  };
 
   useEffect(() => {
     // show a loader when fetching images
     setLoading(true);
-    // asynchronous function to fetch images from pixabay API
-    const fetchImages = async () => {
-      try {
-        const response = await Axios.get(
-          `https://pixabay.com/api/?key=${process.env.REACT_APP_PIXABAY_KEY}&per_page=${POSTS_PER_PAGE}`
-        );
-        // in order to enable infinite scrolling add newly fetched images to the exisiting ones
-        setImages([...images, ...response.data.hits]);
-        // if the program gets here means there was no errors so disable loader and errors
-        setLoading(false);
-        setError(null);
-      } catch (error) {
-        setError(error);
-      }
-    };
-
-    fetchImages();
+    // fetch images from pixabay API
+    fetchData();
   }, [page]);
 
   const LoadMoreImages = () => {
@@ -53,14 +51,19 @@ function Home() {
     <div className="">
       <Header />
 
-      <section className="container h-full mx-auto px-4 md:px-8 lg:px-12 xl:px-16">
-        <div className="gap-6 grid grid-cols-1 sm:grid-cols-3 lg:grid-cols-4">
-          {images.length > 0 &&
-            images.map((image, key) => <Card key={key} data={image} />)}
-        </div>
-      </section>
+      <ImagesGrid images={images} />
 
-      {loading && <BeatLoader loading={loading} color="#000" size={20} />}
+      {loading && (
+        <div className="container flex justify-center items-center mx-auto px-4 md:px-8 lg:px-12 xl:px-16">
+          <BeatLoader loading={loading} color="#000" size={20} />
+        </div>
+      )}
+
+      {error && (
+        <div className="container flex justify-center items-center mx-auto px-4 md:px-8 lg:px-12 xl:px-16">
+          <h2>There was an error fetching images...</h2>
+        </div>
+      )}
     </div>
   );
 }
