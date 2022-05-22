@@ -29,6 +29,7 @@ function Home() {
     // show a loader when fetching images
     setLoading(true);
     // fetch images from pixabay API
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     fetchData();
   }, [page]);
 
