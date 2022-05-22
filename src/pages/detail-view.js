@@ -21,9 +21,7 @@ function DetailView() {
         return;
       }
 
-      // in order to enable infinite scrolling add newly fetched images to the exisiting ones
-      setImages(await [...images, ...fetchResponse.data.hits]);
-      setSelf(imageData.data.hits[0]);
+      setSelf(fetchResponse.data.hits[0]);
       // turn off loading
       setLoading(false);
       setError(false);
