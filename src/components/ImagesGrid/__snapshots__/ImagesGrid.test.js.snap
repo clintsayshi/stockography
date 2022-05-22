@@ -1,0 +1,55 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Cards of images renderes successfully renders cards of images 1`] = `
+<section
+  className="container h-full mx-auto px-4 md:px-8 lg:px-12 xl:px-16"
+  data-testid="images-grid"
+>
+  <div
+    className="gap-6 grid grid-cols-1 sm:grid-cols-3 lg:grid-cols-4"
+  >
+    <a
+      className="relative"
+      data-testid="card-132132"
+      href="/132132"
+      onClick={[Function]}
+    >
+      <img
+        alt="nature, sunrise"
+        className="w-full rounded-lg h-60 object-cover"
+        height={250}
+        src="https://cdn.pixabay.com/photo/2022/04/21/20/49/road-7148369_960_720.jpg"
+        width={200}
+      />
+    </a>
+    <a
+      className="relative"
+      data-testid="card-132132"
+      href="/132132"
+      onClick={[Function]}
+    >
+      <img
+        alt="street, architecture"
+        className="w-full rounded-lg h-60 object-cover"
+        height={250}
+        src="https://cdn.pixabay.com/photo/2022/04/21/20/49/road-7148369_960_720.jpg"
+        width={200}
+      />
+    </a>
+    <a
+      className="relative"
+      data-testid="card-132132"
+      href="/132132"
+      onClick={[Function]}
+    >
+      <img
+        alt="nature, flowers"
+        className="w-full rounded-lg h-60 object-cover"
+        height={250}
+        src="https://cdn.pixabay.com/photo/2022/04/21/20/49/road-7148369_960_720.jpg"
+        width={200}
+      />
+    </a>
+  </div>
+</section>
+`;
